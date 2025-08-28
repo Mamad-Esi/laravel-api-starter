@@ -14,11 +14,11 @@ class TemplateController extends Controller
     {
         $result = $action->handle();
 
-        // return Response::json($result);
+        return Response::json($result);
 
-        return Response::json([
-            'posts' => PostResource::collection($result['posts'])
-        ]);
+        // return Response::json([
+        //     'posts' => PostResource::collection($result['posts'])
+        // ]);
 
         //'posts' => PostResource::collection($result['posts'])
 

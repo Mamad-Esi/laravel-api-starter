@@ -21,14 +21,30 @@ class PostResource extends JsonResource
         'content' => $this->content,
         'slug' => $this->slug,
         'status' => $this->status ? 'active' : 'inactive' ,
-        // 'thumbnail' => $this->thubnail,
+
+        // 'created_at' => optional($this->created_at)->format('Y M D'),
 	    'created_at' => $this->created_at->format('Y M D'),
 
-        'user_id' => $this->whenLoaded('user' , $this->user->id ),
-        'user_title' => $this->whenLoaded('user' , $this->user->title),
-        'category' => $this->whenLoaded('category' , CategoryResource::make($this->category)),
 
-        // 'category_id' => $this->whenLoaded('category' , $this->category->id),
+        // 'user_id' => $this->whenLoaded('user', fn() => $this->user->id),
+        // 'user_title' => $this->whenLoaded('user', fn() => $this->user->title),
+
+        // یوزر فقط id و name
+        'user'      => $this->whenLoaded('user', fn() => [
+            'id'   => $this->user->id,
+            'name' => $this->user->name,
+            'about_description' => $this->user->about_description,
+            'about' =>$this->user->about
+        ]),
+
+        'category' => $this->whenLoaded('category' , fn() => [
+            'id' => $this->category->id,
+            'name' => $this->category->name
+            
+        ]),
+        // 'category' => $this->whenLoaded('category' , CategoryResource::make($this->category)),
+
+        'category_id' => $this->whenLoaded('category' , $this->category->id),
         // 'name' => $this->whenLoaded('category' , $this->category->name),
 
         ];

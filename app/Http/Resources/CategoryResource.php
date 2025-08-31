@@ -17,6 +17,7 @@ class CategoryResource extends JsonResource
         return [
             'category_id' => $this->whenLoaded('category' , $this->category->id),
             'name' => $this->whenLoaded('category' , $this->category->name),
+            'created_at' => $this->whenLoaded('categoey' , $this->category->created_at)
         ];
     }
 }

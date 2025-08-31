@@ -21,13 +21,8 @@ class PostResource extends JsonResource
         'content' => $this->content,
         'slug' => $this->slug,
         'status' => $this->status ? 'active' : 'inactive' ,
-
-        // 'created_at' => optional($this->created_at)->format('Y M D'),
+        'link' => $this->link,
 	    'created_at' => $this->created_at->format('Y M D'),
-
-
-        // 'user_id' => $this->whenLoaded('user', fn() => $this->user->id),
-        // 'user_title' => $this->whenLoaded('user', fn() => $this->user->title),
 
         // یوزر فقط id و name
         'user'      => $this->whenLoaded('user', fn() => [
@@ -40,12 +35,7 @@ class PostResource extends JsonResource
         'category' => $this->whenLoaded('category' , fn() => [
             'id' => $this->category->id,
             'name' => $this->category->name
-            
         ]),
-        // 'category' => $this->whenLoaded('category' , CategoryResource::make($this->category)),
-
-        'category_id' => $this->whenLoaded('category' , $this->category->id),
-        // 'name' => $this->whenLoaded('category' , $this->category->name),
 
         ];
     }

@@ -24,7 +24,6 @@ class PostResource extends JsonResource
         'link' => $this->link,
 	    'created_at' => $this->created_at->format('Y M D'),
 
-        // یوزر فقط id و name
         'user'      => $this->whenLoaded('user', fn() => [
             'id'   => $this->user->id,
             'name' => $this->user->name,
@@ -36,6 +35,8 @@ class PostResource extends JsonResource
             'id' => $this->category->id,
             'name' => $this->category->name
         ]),
+
+        // write the 'comment'  next time when have relation 
 
         ];
     }

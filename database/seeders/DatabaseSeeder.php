@@ -53,6 +53,6 @@ class DatabaseSeeder extends Seeder
         // $role = Role::create(['name' => 'writer']);
         // $user->assignRole($role);
         
-        Comment::factory(3)->create();
+        Comment::factory()->count(10)->create();
     }
 }

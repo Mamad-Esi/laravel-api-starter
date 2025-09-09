@@ -1,18 +1,16 @@
-<?php
+<?php 
 
 namespace App\Action\Auth;
 
-use App\Http\Requests\Auth\RegisterUserRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class AuthenticateAction 
-{
-    public function handle(array $data, Request $request)
+class RegisterUserAction{
+
+    public function handle(array $data , Request $request)
     {
         if ($request->expectsJson()) {
-            $user = $this->apiAuthenticate($data);
+            $user = $this->apiRegister($data);
 
             if (!$user) {
                 return response()->json(['message' => 'Invalid credentials'], 401);
@@ -23,16 +21,14 @@ class AuthenticateAction
                 'user'  => $user,
             ]);
         }
-    }
 
-    private function apiAuthenticate(array $data)
-    {
-        $user = User::where('email', $data['email'])->first();
-
-        if (!$user || !Auth::attempt($data)) {
-            return null;
-        }
+        $user = User::create($data);
 
         return $user;
+    }
+
+    private function apiRegister(array $data)
+    {
+        return User::create($data);
     }
 }

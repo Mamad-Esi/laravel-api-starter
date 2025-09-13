@@ -28,7 +28,9 @@ Route::prefix('admin')->middleware('auth:sanctum')->group(function (){
 
     Route::get('me' , [Postcontroller::class , 'me'])->name('api.me');
 
-    Route::get('post' , [Postcontroller::class , 'index'])->name('post.index');
+    Route::get('post' , [Postcontroller::class , 'index'])->name('api.post.index');
+
+    Route::post('post' , [Postcontroller::class , 'store'])->name('api.post.store');
 });
 
 //35.35

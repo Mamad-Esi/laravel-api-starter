@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Action\Panel\Post\IndexPostAction;
+use App\Action\Panel\Post\StorePostAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\PostCollection;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
@@ -26,6 +28,22 @@ class Postcontroller extends Controller
         $user = Auth::user();
         return Response::json([
             'data' => UserResource::make($user)
+        ]);
+    }
+
+    public function store(StorePostAction $action , StorePostRequest $request)
+    {
+        $data = $request->validated();
+
+        $result = $action->handle($data);
+
+        // return response()->json([
+        //     "post" => $result['posts'],
+        //     'message' => "post '{$result['post']->title}' has been created "
+        // ]);
+        return response()->json([
+            "post" => $result['post'],
+            'message' => "post '{$result['post']->title}' has been created"
         ]);
     }
 }
